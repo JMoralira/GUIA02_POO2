@@ -4,9 +4,17 @@
         <servlet-name>PersonasServ</servlet-name>
         <servlet-class>com.sv.udb.vista.PersonasServ</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CorreoServ</servlet-name>
+        <servlet-class>com.sv.udb.vista.CorreoServ</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PersonasServ</servlet-name>
         <url-pattern>/PersonasServ</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CorreoServ</servlet-name>
+        <url-pattern>/CorreoServ</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

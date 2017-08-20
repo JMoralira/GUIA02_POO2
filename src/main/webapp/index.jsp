@@ -73,8 +73,8 @@
                 </button>
 
 
-        <ul>
-            <li><a href="Correo.jsp">Enviar correos</a></li>
+        <ul class="center">
+            <li><a href="Correo.jsp"><h2>Enviar correos</h2></a></li>
         </ul>            
         </form>
         
@@ -124,8 +124,13 @@
             <button class="btn waves-effect waves-light" type="submit" name="btonPers" value="Consultar">Consultar
             <i class="material-icons right">send</i>
             </button>
+        <a class="btn modal-trigger waves-effect waves-light" type="submit" name="btonPers" href="Identificacion.jsp" value="Ver">Ver Identificacion
+            <i class="material-icons right">send</i>
+        </a>
+          
         </form>
         </div>
+        
     </body>
     
 </html>

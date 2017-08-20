@@ -164,7 +164,7 @@ public class PersonasServ extends HttpServlet {
                 {
                     mens = "Error al Modificar";
                 }
-            }
+            }           
             else if(CRUD.equals("Nuevo"))
             {
                 request.setAttribute("codi", "");
