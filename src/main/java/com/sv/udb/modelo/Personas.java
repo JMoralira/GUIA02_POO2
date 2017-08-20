@@ -21,6 +21,7 @@ public class Personas {
    private String nitPers;
    private String tipoSangrePers;
    private int codiUbicPers;
+   private String correPers;
    private String fechAltaPers;
    private String fechBajaPers;
    private int estaPers;   
@@ -29,7 +30,7 @@ public class Personas {
    public Personas(){
    }
 
-    public Personas(int codiPers, String nombrPers, String apelPers, byte[] foto, int codiTipoPers, String genePers, String fechaNaciPers, String duiPers, String nitPers, String tipoSangrePers, int codiUbicPers, String fechAltaPers, String fechBajaPers, int estaPers) {
+    public Personas(int codiPers, String nombrPers, String apelPers, byte[] foto, int codiTipoPers, String genePers, String fechaNaciPers, String duiPers, String nitPers, String tipoSangrePers, int codiUbicPers, String correPers, String fechAltaPers, String fechBajaPers, int estaPers) {
         this.codiPers = codiPers;
         this.nombrPers = nombrPers;
         this.apelPers = apelPers;
@@ -41,6 +42,7 @@ public class Personas {
         this.nitPers = nitPers;
         this.tipoSangrePers = tipoSangrePers;
         this.codiUbicPers = codiUbicPers;
+        this.correPers = correPers;
         this.fechAltaPers = fechAltaPers;
         this.fechBajaPers = fechBajaPers;
         this.estaPers = estaPers;
@@ -156,6 +158,14 @@ public class Personas {
 
     public void setEstaPers(int estaPers) {
         this.estaPers = estaPers;
+    }
+
+    public String getCorrePers() {
+        return correPers;
+    }
+
+    public void setCorrePers(String correPers) {
+        this.correPers = correPers;
     }
 
     @Override
