@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : Correo
     Created on : 08-18-2017, 04:50:59 PM
     Author     : Jose Lira
@@ -26,8 +26,9 @@
                         <div class="card-content">
                             <h1 class="header center">Nuevo mensaje<h1>
                                     <br/>
+                                    <h1>${mensAlert}</h1>
                                     <label class="black-text">Para</label>
-                                    <select id="cmbPersonas" name="cmbPersonas">
+                                    <select id="cmbPersonas" name="para">
 
                                         <option  disabled selected class="white-text"> Seleccione una Persona</option>
                                         <%
@@ -39,7 +40,7 @@
                                         %>
                                     </select> <br/>
                                     <label class="black-text">CC</label>
-                                    <select id="cmbPersonas" name="cmbPersonas">
+                                    <select id="cmbPersonas" name="cc">
 
                                         <option  disabled selected class="white-text"> Seleccione una Persona</option>
                                         <%
@@ -51,7 +52,7 @@
                                         %>
                                     </select> <br/>
                                     <label class="black-text">CCO</label>
-                                    <select id="cmbPersonas" name="cmbPersonas">
+                                    <select id="cmbPersonas" name="cco">
 
                                         <option  disabled selected class="white-text"> Seleccione una Persona</option>
                                         <%
@@ -67,7 +68,13 @@
                                     <input type="text" name="asun" id="asun" value="${asun}" required> <br>
                                     <label>Mensaje:</label>
                                     <input type="text" name="mensa" id="mensa" value="${mensa}" required> <br>
+                                    <label>Archivo Adjunto</label>
+                                    <input type="text" name="url" id="url" placeholder="copie url de archivo que desee enviar" value="${url}" required>
                                     </div>
+                                    
+                                    
+                                    
+                                    
                                     <ul class="center">
                                         <li><a href="index.jsp"><h2>Mantenimiento personas</h2></a></li>
                                     </ul>            

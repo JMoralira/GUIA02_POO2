@@ -5,18 +5,34 @@
  */
 package com.sv.udb.vista;
 
-import com.sv.udb.controlador.PersonasCtrl;
-import com.sv.udb.modelo.Personas;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
+import com.sv.udb.recursos.Correo;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
-import javax.imageio.ImageIO;
+import java.util.Collection;
+import java.util.List;
+import java.util.Properties;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,61 +59,33 @@ public class CorreoServ extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        boolean esValido = request.getMethod().equals("POST");
-        String mens = "";
-        if(!esValido)
+        
+        
+          String[] listaMail = request.getParameterValues("para");
+        String[] listaMailCc = request.getParameterValues("cc");
+        String[] listaMailCo = request.getParameterValues("cco");
+       // String asunto = request.getParameter("asun");
+        String mensaje = request.getParameter("mensa");
+        String ruta = request.getParameter("url");
+       
+         Correo objeEnviar = new Correo();
+        if (objeEnviar.enviarMail(listaMail,listaMailCc, listaMailCo, mensaje, ruta) == true)
         {
-            response.sendRedirect(request.getContextPath()+"/Correo.jsp");
+            request.setAttribute("mensAlert", "Correo enviado");
         }
-        else
-        {
-            String CRUD = request.getParameter("btoCorr");
-            if(CRUD.equals("Enviar"))
-            {
-            Personas obje = new Personas();
-            obje.setNombrPers(request.getParameter("nomb"));
-            obje.setApelPers(request.getParameter("apel"));
-            Part filePart = request.getPart("ima");
-            int fotoSize = (int)filePart.getSize();
-            byte[] foto = null;
-            foto = new byte[fotoSize];
-            try(DataInputStream dataImg = new DataInputStream(filePart.getInputStream()))
-            {
-                dataImg.readFully(foto);
-            }
-            obje.setFoto(foto);
-            obje.setCodiTipoPers (Integer.parseInt(request.getParameter("coditipopers")));
-            obje.setGenePers(request.getParameter("gene"));
-            obje.setFechaNaciPers(request.getParameter("fechnaci"));
-            obje.setDuiPers(request.getParameter("dui"));
-            obje.setNitPers(request.getParameter("nit"));
-            obje.setTipoSangrePers(request.getParameter("tiposang"));
-            obje.setCodiUbicPers(Integer.parseInt(request.getParameter("codiubicgeog")));
-            obje.setCorrePers(request.getParameter("corr"));
-            obje.setFechAltaPers(request.getParameter("fechalta"));
-            obje.setFechBajaPers(request.getParameter("fechbaja"));
-            obje.setEstaPers(Integer.parseInt(request.getParameter("esta")));
-            if(new PersonasCtrl().guar(obje))
-            {
-                
-                mens = "Datos Guardados";
-            }
-            else
-            {
-                mens = "Error al guardar";
-            }
-            }
-            else if(CRUD.equals("Cancelar"))
-            {
-                request.setAttribute("asun", "");
-                request.setAttribute("mensa", "");
-            }
-          
-            
-            request.setAttribute("mensAler",mens);
-            request.getRequestDispatcher("/Correo.jsp").forward(request, response);
-        }
+        
+          request.getRequestDispatcher("/Correo.jsp").forward(request, response);        
     }
+     private static String getSubmittedFileName(Part part) {
+        for (String cd : part.getHeader("content-disposition").split(";")) {
+            if (cd.trim().startsWith("filename")) {
+                String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+                return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE fix.
+            }
+        }
+        return null;
+    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
